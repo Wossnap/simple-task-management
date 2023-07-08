@@ -3,7 +3,7 @@
 - run composer install
 - run npm install
 - run npm run build
-- update the .env file to reflect your db details
+- create an .env file from .env.example and update your db details
 - run php artisan migrate --seed
 - run php artisan key:gen
 - run php artisan serve
