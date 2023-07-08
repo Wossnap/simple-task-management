@@ -1,4 +1,4 @@
-## How to run project
+## How to run the project
 
 - run composer install
 - update the .env file to reflect your db details
