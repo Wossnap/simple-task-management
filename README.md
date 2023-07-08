@@ -1,9 +1,9 @@
 ## How to run project
 
-run composer install
-update the .env file to reflect your db details
-run php artisan migrate --seed
-run php artisan serve
+- run composer install
+- update the .env file to reflect your db details
+- run php artisan migrate --seed
+- run php artisan serve
 
 ### For testing
 
