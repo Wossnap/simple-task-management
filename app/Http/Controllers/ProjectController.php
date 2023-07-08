@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectPriorityRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller
 {
@@ -13,7 +15,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::withCount('tasks')->get();
+
+        return view('projects.index', compact('projects'));
     }
 
     /**
@@ -21,7 +25,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        $projects = Project::all();
+
+        return view('projects.create', compact('projects'));
     }
 
     /**
@@ -29,7 +35,9 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        Project::create($request->validated());
+
+        return redirect()->route('projects.index')->with('success', 'Project created successfully.');
     }
 
     /**
@@ -37,7 +45,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+
     }
 
     /**
@@ -45,7 +53,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        $projects = Project::all();
+
+        return view('projects.edit', compact('projects','project'));
     }
 
     /**
@@ -53,14 +63,21 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
-    }
+        $project->update($request->validated());
 
+        return redirect()->route('projects.index')->with('success', 'Project updated successfully.');
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Project $project)
     {
-        //
+        if($project->tasks->count()){
+            return redirect()->route('projects.index')->with('error', 'Project deletion unsuccessful, there are tasks assigned.');
+
+        }
+        $project->delete();
+
+        return redirect()->route('projects.index')->with('success', 'Project deleted successfully.');
     }
 }

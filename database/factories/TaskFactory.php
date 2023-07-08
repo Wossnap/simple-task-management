@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Task;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,11 @@ class TaskFactory extends Factory
      */
     public function definition(): array
     {
+        $maxPriority = Task::max('priority')?:0;
+
         return [
-            //
+            'name' => fake()->name(),
+            'priority' => $maxPriority+1
         ];
     }
 }
