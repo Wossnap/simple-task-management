@@ -7,6 +7,6 @@
 
 ### For testing
 
-update the .env.testing to reflect your testing db
-run php artisan migrate --env testing
-run php artisan test
+- update the .env.testing to reflect your testing db
+- run php artisan migrate --env testing
+- run php artisan test
